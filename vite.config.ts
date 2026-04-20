@@ -3,5 +3,8 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: "/binary-tree-app/"
+  base: "/binary-tree-app/",
+  build: {
+    outDir: "dist"
+  }
 })
