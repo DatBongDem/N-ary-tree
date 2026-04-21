@@ -40,12 +40,25 @@ function layoutTree(
     return x;
 }
 
-export default function BinaryTree() {
+type BinaryTreeProps = {
+    selectedLevel: string;
+};
+
+
+
+export default function BinaryTree({ selectedLevel }: BinaryTreeProps) {
     const root = buildDecisionTree();
 
     currentX = 50;
     const nodes: PositionedNode[] = [];
     layoutTree(root, 0, nodes);
+
+    // Lọc node theo level nếu không phải 'all'
+    let filteredNodes = nodes;
+    if (selectedLevel !== "all") {
+        const levelNum = parseInt(selectedLevel, 10);
+        filteredNodes = nodes.filter(n => (n.y / 140) + 1 === levelNum);
+    }
 
     const width = currentX + 200;
     const height = Math.max(...nodes.map((n) => n.y)) + 200;
@@ -61,7 +74,7 @@ export default function BinaryTree() {
             }}
         >
             {/* ===== LINE ===== */}
-            {nodes.map((p) =>
+            {selectedLevel === "all" && nodes.map((p) =>
                 p.node.children.map((child) => {
                     const target = nodes.find(
                         (n) => n.node.value === child.value
@@ -84,7 +97,7 @@ export default function BinaryTree() {
             )}
 
             {/* ===== NODE ===== */}
-            {nodes.map((p) => (
+            {filteredNodes.map((p) => (
                 <g key={p.node.value}>
                     <rect
                         x={p.x - 60}
