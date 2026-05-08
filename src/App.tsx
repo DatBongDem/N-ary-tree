@@ -2,35 +2,20 @@ import { useState } from "react";
 import { buildDecisionTree } from "./utils/treeHelper";
 import { Node } from "./models/Node";
 import BinaryTree from "./components/BinaryTree";
+import ChatWizard from "./components/ChatWizard";
 
 const LEVEL_LABELS = [
   { value: "wizard", label: "Tư vấn từng bước" },
   { value: "full", label: "Xem toàn bộ cây" },
   { value: "2", label: "Tất cả danh mục" },
   { value: "3", label: "Tất cả sản phẩm" },
-  { value: "4", label: "Tất cả brand" },
-  { value: "5", label: "Tất cả model" },
+  { value: "4", "label": "Tất cả brand" },
+  { value: "5", "label": "Tất cả model" },
 ];
 
 function App() {
   const root = buildDecisionTree();
   const [mode, setMode] = useState("wizard");
-  // Wizard state
-  const [currentNode, setCurrentNode] = useState(root);
-  const [path, setPath] = useState([root]);
-
-  const handleSelect = (child: Node) => {
-    setCurrentNode(child);
-    setPath((prev) => [...prev, child]);
-  };
-
-  const handleRestart = () => {
-    setCurrentNode(root);
-    setPath([root]);
-  };
-
-  // Nếu là node lá
-  const isLeaf = currentNode.children.length === 0;
 
   // Toolbar
   const Toolbar = (
@@ -59,36 +44,7 @@ function App() {
     <div>
       {Toolbar}
       {mode === "wizard" && (
-        <div style={{ maxWidth: 400, margin: "0 auto", padding: 24, background: "#fff", borderRadius: 12, boxShadow: "0 2px 12px #0001", textAlign: "center" }}>
-          <h2 style={{ marginBottom: 24 }}>Tư vấn mua sắm</h2>
-          {!isLeaf ? (
-            <>
-              <div style={{ fontSize: 18, marginBottom: 16 }}>
-                {currentNode.value}
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                {currentNode.children.map((child) => (
-                  <button
-                    key={child.value}
-                    onClick={() => handleSelect(child)}
-                    style={{ padding: "10px 0", fontSize: 16, borderRadius: 8, border: "1px solid #4CAF50", background: "#f5f5f5", cursor: "pointer" }}
-                  >
-                    {child.value}
-                  </button>
-                ))}
-              </div>
-            </>
-          ) : (
-            <>
-              <div style={{ fontSize: 18, marginBottom: 16 }}>
-                Bạn đã chọn: <b>{path.map(n => n.value).join(" → ")}</b>
-              </div>
-              <button onClick={handleRestart} style={{ padding: "10px 24px", fontSize: 16, borderRadius: 8, background: "#4CAF50", color: "#fff", border: "none", cursor: "pointer" }}>
-                Chọn lại
-              </button>
-            </>
-          )}
-        </div>
+        <ChatWizard root={root} />
       )}
 
       {mode === "full" && (

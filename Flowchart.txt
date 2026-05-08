@@ -1,0 +1,12 @@
+Flowchart thuật toán (mô tả dạng văn bản):
+
+1. Bắt đầu
+2. Nhập dữ liệu cây nhị phân
+3. Kiểm tra nếu cây rỗng:
+   - Nếu Đúng: Kết thúc
+   - Nếu Sai: Tiếp tục
+4. Thực hiện thuật toán duyệt cây (VD: Duyệt theo thứ tự NLR, LNR, LRN)
+5. Hiển thị kết quả duyệt cây
+6. Kết thúc
+
+(Lưu ý: Đây là mô tả dạng text, bạn có thể chuyển thành sơ đồ bằng các công cụ vẽ flowchart hoặc phần mềm chuyên dụng.)

@@ -1,0 +1,9 @@
+flowchart TD
+    A[Bắt đầu] --> B[Duyệt tất cả node]
+    B --> C{Với mỗi node: Có child không?}
+    C -- Có --> D[Vẽ line]
+    D --> E[Vẽ node (rect + text)]
+    E --> F[Kết thúc]
+    C -- Không --> F
+
+// Đây là sơ đồ flowchart dạng Mermaid, bạn có thể copy vào https://mermaid.live để xem sơ đồ trực quan.
